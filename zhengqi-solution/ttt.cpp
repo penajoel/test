@@ -24,7 +24,7 @@ namespace solution {
 	return true;
       }
     }
-    return false;
+    return checkDiagonal();
   }
 
   bool TTT::checkVertical (const int column) const {
@@ -45,7 +45,40 @@ namespace solution {
     return true;
   }
 
-  std::ostream & operator<< (std::ostream & os, const TTT & board) {
+  bool TTT::checkDiagonal() const {
+    if (d_board.size() != d_board[0].size()) {
+        return false;
+    }
+    bool isWinner = true;
+    int horizontalIndex = 0;
+    int verticalIndex = 0;
+    while(horizontalIndex != d_board.size() && verticalIndex != d_board.size()) {
+        if (d_board[horizontalIndex][verticalIndex] != d_currentPlayer) {
+            isWinner = false;
+            break;
+        }
+        ++horizontalIndex;
+        ++verticalIndex;
+    }
+    if (isWinner) {
+        return isWinner;
+    }
+    isWinner = true;
+    horizontalIndex = d_board.size() - 1;
+    verticalIndex = 0;
+    while(horizontalIndex != -1 && verticalIndex != d_board.size()) {
+        if (d_board[horizontalIndex][verticalIndex] != d_currentPlayer) {
+            isWinner = false;
+            break;
+        }
+        --horizontalIndex;
+        ++verticalIndex;
+    }
+    return isWinner;
+  }
+  
+
+  std::ostream & operator<< (std::ostream & os, const TTT& board) {
     for (auto it = board.d_board.begin (); it != board.d_board.end (); ++it) {
       os << '|';
       for (auto jt = it->begin (); jt != it->end (); ++jt) {

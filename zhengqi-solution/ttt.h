@@ -16,11 +16,12 @@ namespace solution {
     // switches current player 
     void switchPlayer();
     // overload for printing
-    friend std::ostream & operator<<(std::ostream & os, const TTT & board);
+    friend std::ostream & operator<<(std::ostream & os, const TTT& board);
   private:
     bool checkVertical(const int column) const;
     bool checkHorizontal(const int row) const;
-    std::vector < std::vector < char >>d_board;
+    bool checkDiagonal() const;
+    std::vector <std::vector<char> > d_board;
     char d_currentPlayer = 'x';
     char d_secondPlayer = 'o';
     char d_empty = ' ';
